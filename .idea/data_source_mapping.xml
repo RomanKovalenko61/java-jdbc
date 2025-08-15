@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/src/com/dmdev/confug/flight_repository.sql" value="60e093d6-c223-41f0-b80b-4d25c8788a24" />
+    <file url="file://$PROJECT_DIR$/src/com/dmdev/confug/populate.sql" value="60e093d6-c223-41f0-b80b-4d25c8788a24" />
+  </component>
+</project>
