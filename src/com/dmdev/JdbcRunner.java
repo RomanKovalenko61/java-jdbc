@@ -3,27 +3,58 @@ package com.dmdev;
 import com.dmdev.util.ConnectionManager;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcRunner {
 
     public static void main(String[] args) throws SQLException {
-        String flight_id = "2 OR 1 = 1; DROP TABLE info";
-        var result = getTicketsByFlightId(flight_id);
+//        Long flight_id = 2L;
+//        var result = getTicketsByFlightId(flight_id);
+//        System.out.println(result);
+
+        var result = getFlightBetween(LocalDate.of(2020, 1, 1).atStartOfDay(), LocalDateTime.now());
         System.out.println(result);
     }
 
-    private static List<Long> getTicketsByFlightId(String flightId) throws SQLException {
+    private static List<Long> getFlightBetween(LocalDateTime start, LocalDateTime end) throws SQLException {
+        String sql = """
+                SELECT id
+                FROM flight
+                WHERE departure_date  BETWEEN ? AND ?
+                """;
+        List<Long> result = new ArrayList<>();
+        try (var connection = ConnectionManager.open();
+             var preparedStatement = connection.prepareStatement(sql)) {
+            System.out.println(preparedStatement);
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(start));
+            System.out.println(preparedStatement);
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(end));
+            System.out.println(preparedStatement);
+
+            var executed = preparedStatement.executeQuery();
+            while (executed.next()) {
+                result.add(executed.getObject("id", Long.class));
+            }
+            return result;
+        }
+    }
+
+    private static List<Long> getTicketsByFlightId(Long flightId) throws SQLException {
         String sql = """
                 SELECT id
                 FROM ticket
-                WHERE flight_id = %s
-                """.formatted(flightId);
+                WHERE flight_id = ?
+                """;
         List<Long> result = new ArrayList<>();
         try (var connection = ConnectionManager.open();
-             var statement = connection.createStatement()) {
-            var resultSet = statement.executeQuery(sql);
+             var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setLong(1, flightId);
+
+            var resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 result.add(resultSet.getObject("id", Long.class)); // Null safe
             }
