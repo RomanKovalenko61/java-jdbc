@@ -27,3 +27,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/resources/boeing777.jpg
+/resources/boeing777_new.jpg
