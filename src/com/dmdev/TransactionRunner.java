@@ -3,8 +3,8 @@ package com.dmdev;
 import com.dmdev.util.ConnectionManager;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class TransactionRunner {
 
@@ -12,31 +12,24 @@ public class TransactionRunner {
         long flightId = 9L;
         var deleteFlightSql = """
                 DELETE FROM flight
-                WHERE id = ?
-                """;
+                WHERE id = 
+                """ + flightId;
         var deleteTicketsSql = """
                 DELETE FROM ticket
-                WHERE flight_id = ?
-                """;
+                WHERE flight_id = 
+                """ + flightId;
 
         Connection connection = null;
-        PreparedStatement deleteFlightStatement = null;
-        PreparedStatement deleteTicketsStatement = null;
+        Statement statement = null;
         try {
             connection = ConnectionManager.open();
-            deleteFlightStatement = connection.prepareStatement(deleteFlightSql);
-            deleteTicketsStatement = connection.prepareStatement(deleteTicketsSql);
-
             connection.setAutoCommit(false);
 
-            deleteFlightStatement.setLong(1, flightId);
-            deleteTicketsStatement.setLong(1, flightId);
+            statement = connection.createStatement();
+            statement.addBatch(deleteTicketsSql);
+            statement.addBatch(deleteFlightSql);
 
-            deleteTicketsStatement.executeUpdate();
-            if (true) {
-                throw new RuntimeException("Oooops");
-            }
-            deleteFlightStatement.executeUpdate();
+            var ints = statement.executeBatch();
 
             connection.commit();
         } catch (Exception e) {
@@ -48,11 +41,8 @@ public class TransactionRunner {
             if (connection != null) {
                 connection.close();
             }
-            if (deleteFlightStatement != null) {
-                deleteFlightStatement.close();
-            }
-            if (deleteTicketsStatement != null) {
-                deleteTicketsStatement.close();
+            if (statement != null) {
+                statement.close();
             }
         }
     }
