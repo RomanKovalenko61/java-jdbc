@@ -29,6 +29,10 @@ public class JdbcRunner {
         List<Long> result = new ArrayList<>();
         try (var connection = ConnectionManager.open();
              var preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setFetchSize(50); // сколько получать строк за раз
+            preparedStatement.setQueryTimeout(10); // таймаут 10 сек для запроса
+            preparedStatement.setMaxRows(100); // макс кол-ыо строк которое можно получить, 0 - не ограничено
+
             System.out.println(preparedStatement);
             preparedStatement.setTimestamp(1, Timestamp.valueOf(start));
             System.out.println(preparedStatement);
