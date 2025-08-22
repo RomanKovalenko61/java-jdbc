@@ -1,6 +1,7 @@
 package com.dmdev;
 
 import com.dmdev.dao.TicketDao;
+import com.dmdev.dto.TicketFilter;
 import com.dmdev.entity.Ticket;
 
 import java.math.BigDecimal;
@@ -8,7 +9,9 @@ import java.math.BigDecimal;
 public class DaoRunner {
 
     public static void main(String[] args) {
-        var tickets = TicketDao.getInstance().findAll();
+//        var ticketFilter = new TicketFilter(3, 0 , "Евгений Кудрявцев", "A1");
+        var ticketFilter = new TicketFilter(0, 0 , null, null);
+        var tickets = TicketDao.getInstance().findAll(ticketFilter);
         tickets.stream().limit(5).forEach(System.out::println);
     }
 
