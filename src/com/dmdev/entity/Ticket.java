@@ -9,15 +9,15 @@ public class Ticket {
     private String passengerName;
     private Long flightId;
     private String seatNo;
-    private BigDecimal coat;
+    private BigDecimal cost;
 
-    public Ticket(Long id, String passengerNo, String passengerName, Long flightId, String seatNo, BigDecimal coat) {
+    public Ticket(Long id, String passengerNo, String passengerName, Long flightId, String seatNo, BigDecimal cost) {
         this.id = id;
         this.passengerNo = passengerNo;
         this.passengerName = passengerName;
         this.flightId = flightId;
         this.seatNo = seatNo;
-        this.coat = coat;
+        this.cost = cost;
     }
 
     public Ticket() {
@@ -63,12 +63,12 @@ public class Ticket {
         this.seatNo = seatNo;
     }
 
-    public BigDecimal getCoat() {
-        return coat;
+    public BigDecimal getCost() {
+        return cost;
     }
 
-    public void setCoat(BigDecimal coat) {
-        this.coat = coat;
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class Ticket {
                 ", passengerName='" + passengerName + '\'' +
                 ", flightId=" + flightId +
                 ", seatNo='" + seatNo + '\'' +
-                ", coat=" + coat +
+                ", cost=" + cost +
                 '}';
     }
 }
