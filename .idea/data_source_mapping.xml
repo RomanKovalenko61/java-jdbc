@@ -11,6 +11,7 @@
     <file url="file://$PROJECT_DIR$/src/com/dmdev/TransactionRunner.java" value="60e093d6-c223-41f0-b80b-4d25c8788a24" />
     <file url="file://$PROJECT_DIR$/src/com/dmdev/config/flight_repository.sql" value="60e093d6-c223-41f0-b80b-4d25c8788a24" />
     <file url="file://$PROJECT_DIR$/src/com/dmdev/config/populate.sql" value="60e093d6-c223-41f0-b80b-4d25c8788a24" />
+    <file url="file://$PROJECT_DIR$/src/com/dmdev/dao/FlightDao.java" value="60e093d6-c223-41f0-b80b-4d25c8788a24" />
     <file url="file://$PROJECT_DIR$/src/com/dmdev/dao/TicketDao.java" value="60e093d6-c223-41f0-b80b-4d25c8788a24" />
   </component>
 </project>

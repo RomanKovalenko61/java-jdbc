@@ -9,8 +9,13 @@ import java.math.BigDecimal;
 public class DaoRunner {
 
     public static void main(String[] args) {
-//        var ticketFilter = new TicketFilter(3, 0 , "Евгений Кудрявцев", "A1");
-        var ticketFilter = new TicketFilter(0, 0 , null, null);
+        var ticket = TicketDao.getInstance().findById(5L);
+        System.out.println(ticket);
+    }
+
+    private static void filterTest() {
+        //        var ticketFilter = new TicketFilter(3, 0 , "Евгений Кудрявцев", "A1");
+        var ticketFilter = new TicketFilter(0, 0, null, null);
         var tickets = TicketDao.getInstance().findAll(ticketFilter);
         tickets.stream().limit(5).forEach(System.out::println);
     }
@@ -37,7 +42,7 @@ public class DaoRunner {
         var ticket = new Ticket();
         ticket.setPassengerNo("1234567");
         ticket.setPassengerName("Test");
-        ticket.setFlightId(3L);
+//        ticket.setFlight(3L);
         ticket.setSeatNo("B3");
         ticket.setCost(BigDecimal.TEN);
 
