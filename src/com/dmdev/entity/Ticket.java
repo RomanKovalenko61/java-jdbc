@@ -20,6 +20,9 @@ public class Ticket {
         this.coat = coat;
     }
 
+    public Ticket() {
+    }
+
     public Long getId() {
         return id;
     }
